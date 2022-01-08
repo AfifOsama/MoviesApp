@@ -2,15 +2,16 @@
     <string name="app_name">MoviesApp</string>
     <string name="title_detail">MoviesApp</string>
     <string name="title_activity_detail">DetailActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title">Title</string>
     <string name="july_18_2019">July 18, 2019</string>
-    <string name="lorem_ipsum_dolor_sit_amet">Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet</string>
+    <string name="lorem_ipsum_dolor_sit_amet">Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit ametLorem ipsum dolor sit amet Lorem ipsum dolor sit amet</string>
+    <string name="action_comedy">Action, Comedy</string>
+    <string name="PG_13">PG-13</string>
+    <string name="matt_minrale">Matt Minrale</string>
+    <string name="_4_3">4.3</string>
+    <string name="favorite">Favorite</string>
+    <string name="description">Description</string>
 </resources>

@@ -9,19 +9,32 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.madman.moviesapp.R
 import com.madman.moviesapp.databinding.ActivityDetailBinding
+import com.madman.moviesapp.databinding.ContentDetailBinding
+
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityDetailBinding
+    private lateinit var contentBinding: ContentDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityDetailBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        val detailBinding = ActivityDetailBinding.inflate(layoutInflater)
+        setContentView(detailBinding.root)
+        setSupportActionBar(detailBinding.toolbar)
 
-        setSupportActionBar(binding.toolbar)
+        contentBinding=detailBinding.detailContent
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        initiateUI()
+    }
+
+    private fun initiateUI() {
+        with(contentBinding){
+            if(tbFavorite.isChecked){
+                !tbFavorite.isChecked
+            }
+        }
     }
 
     companion object{
