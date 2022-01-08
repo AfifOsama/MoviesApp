@@ -69,7 +69,6 @@
         android:text="@string/july_18_2019"
         android:textColor="@color/black_text"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="director"
         app:layout_constraintStart_toEndOf="@id/rating"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
@@ -84,7 +83,6 @@
         android:text="@string/action_comedy"
         android:textColor="@color/black_text"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="director"
         app:layout_constraintStart_toEndOf="@id/img_movie"
         app:layout_constraintTop_toBottomOf="@id/rating" />
 
@@ -99,7 +97,6 @@
         android:text="@string/matt_minrale"
         android:textColor="@color/black_text"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf=""
         app:layout_constraintStart_toEndOf="@id/img_movie"
         app:layout_constraintTop_toBottomOf="@id/genre" />
 
@@ -123,7 +120,6 @@
         android:textColor="@color/amber_400"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf=""
         app:layout_constraintStart_toEndOf="@id/icon_star"
         app:layout_constraintTop_toBottomOf="@id/divider_top" />
 
@@ -165,7 +161,6 @@
         android:textColor="@color/black_text"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="fa"
         app:layout_constraintTop_toBottomOf="@id/divider_top" />
 
     <View
@@ -188,7 +183,6 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf=""
         app:layout_constraintTop_toBottomOf="@id/divider_bottom" />
 
     <androidx.appcompat.widget.AppCompatTextView
