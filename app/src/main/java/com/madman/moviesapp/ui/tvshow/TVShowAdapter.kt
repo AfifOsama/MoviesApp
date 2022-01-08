@@ -9,9 +9,10 @@ import com.bumptech.glide.request.RequestOptions
 import com.madman.moviesapp.R
 import com.madman.moviesapp.data.TVShowEntity
 import com.madman.moviesapp.databinding.ItemsMoviesBinding
-import com.madman.moviesapp.ui.detail.DetailActivity
+import com.madman.moviesapp.ui.detail.tvshow.DetailTvshowActivity
 
-class TVShowAdapter(private val callback: TVShowFragmentCallback) : RecyclerView.Adapter<TVShowAdapter.ViewHolder>() {
+class TVShowAdapter(private val callback: TVShowFragmentCallback) :
+    RecyclerView.Adapter<TVShowAdapter.ViewHolder>() {
 
     private var listTVshow = ArrayList<TVShowEntity>()
 
@@ -48,8 +49,8 @@ class TVShowAdapter(private val callback: TVShowFragmentCallback) : RecyclerView
                     .into(imgMovie)
                 btnShare.setOnClickListener { callback.onShareClick(TVshow) }
                 itemView.setOnClickListener {
-                    val intent = Intent(itemView.context, DetailActivity::class.java)
-                    intent.putExtra(DetailActivity.EXTRA_DETAIL, TVshow.title)
+                    val intent = Intent(itemView.context, DetailTvshowActivity::class.java)
+                    intent.putExtra(DetailTvshowActivity.EXTRA_DETAIL, TVshow.title)
                     itemView.context.startActivity(intent)
                 }
             }

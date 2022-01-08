@@ -9,9 +9,10 @@ import com.bumptech.glide.request.RequestOptions
 import com.madman.moviesapp.R
 import com.madman.moviesapp.data.MoviesEntity
 import com.madman.moviesapp.databinding.ItemsMoviesBinding
-import com.madman.moviesapp.ui.detail.DetailActivity
+import com.madman.moviesapp.ui.detail.movies.DetailMovieActivity
 
-class MoviesAdapter(private val callback:MoviesFragmentCallback): RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
+class MoviesAdapter(private val callback: MoviesFragmentCallback) :
+    RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
     private var listMovies = ArrayList<MoviesEntity>()
 
@@ -23,7 +24,7 @@ class MoviesAdapter(private val callback:MoviesFragmentCallback): RecyclerView.A
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesAdapter.ViewHolder {
         val itemsMoviesBinding =
-            ItemsMoviesBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+            ItemsMoviesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(itemsMoviesBinding)
     }
 
@@ -36,10 +37,10 @@ class MoviesAdapter(private val callback:MoviesFragmentCallback): RecyclerView.A
 
     inner class ViewHolder(private val binding: ItemsMoviesBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(movies:MoviesEntity) {
+        fun bind(movies: MoviesEntity) {
             with(binding) {
                 tvTitle.text = movies.title
-                tvReleaseDate.text =movies.releaseDate
+                tvReleaseDate.text = movies.releaseDate
                 Glide.with(itemView.context)
                     .load(movies.imgPath)
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_loading))
@@ -47,8 +48,8 @@ class MoviesAdapter(private val callback:MoviesFragmentCallback): RecyclerView.A
                     .into(imgMovie)
                 btnShare.setOnClickListener { callback.onShareClick(movies) }
                 itemView.setOnClickListener {
-                    val intent = Intent(itemView.context, DetailActivity::class.java)
-                    intent.putExtra(DetailActivity.EXTRA_DETAIL, movies.title)
+                    val intent = Intent(itemView.context, DetailMovieActivity::class.java)
+                    intent.putExtra(DetailMovieActivity.EXTRA_DETAIL, movies.title)
                     itemView.context.startActivity(intent)
                 }
             }

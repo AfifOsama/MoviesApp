@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">MoviesApp</string>
     <string name="title_detail">MoviesApp</string>
-    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_detail_movie">Detail Movie</string>
+    <string name="title_activity_detail_tvshow">Detail TV Show</string>
     <string name="title">Title</string>
     <string name="movies">Movies</string>
     <string name="tv_show">TV Show</string>
