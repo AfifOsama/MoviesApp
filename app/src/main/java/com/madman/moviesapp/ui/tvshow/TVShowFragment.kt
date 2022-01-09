@@ -26,14 +26,14 @@ class TVShowFragment : Fragment(), TVShowFragmentCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
-            val TVshow = viewModel.getTVShow()
-            val TVshowAdapter = TVShowAdapter(this)
-            TVshowAdapter.setTVshow(TVshow)
+            val tvshow = viewModel.getTVShow()
+            val tvShowAdapter = TVShowAdapter(this)
+            tvShowAdapter.setTVshow(tvshow)
             with(binding) {
                 progressBar.visibility = View.GONE
                 rvTvshow.layoutManager = LinearLayoutManager(activity)
                 rvTvshow.setHasFixedSize(true)
-                rvTvshow.adapter = TVshowAdapter
+                rvTvshow.adapter = tvShowAdapter
             }
         }
     }

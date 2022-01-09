@@ -1,6 +1,5 @@
 package com.madman.moviesapp.ui.tvshow
 
-import com.madman.moviesapp.ui.movies.MoviesViewModel
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -17,8 +16,8 @@ class TVShowViewModelTest {
 
     @Test
     fun getTVShow() {
-        val TVShowEntities = viewModel.getTVShow()
-        assertNotNull(TVShowEntities)
-        assertEquals(numberOfList, TVShowEntities.size)
+        val tvShowEntities = viewModel.getTVShow()
+        assertNotNull(tvShowEntities)
+        assertEquals(numberOfList, tvShowEntities.size)
     }
 }

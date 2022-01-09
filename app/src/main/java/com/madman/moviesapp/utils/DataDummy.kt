@@ -5,7 +5,7 @@ import com.madman.moviesapp.data.MoviesEntity
 import com.madman.moviesapp.data.TVShowEntity
 
 object DataDummy {
-    fun generateDummyMovies(): List<MoviesEntity> {
+    fun generateMovies(): List<MoviesEntity> {
         val movies = ArrayList<MoviesEntity>()
 
         movies.add(
@@ -132,9 +132,9 @@ object DataDummy {
     }
 
     fun generateTVShow(): List<TVShowEntity> {
-        val TVShow = ArrayList<TVShowEntity>()
+        val tvshow = ArrayList<TVShowEntity>()
 
-        TVShow.add(
+        tvshow.add(
             TVShowEntity(
                 "Arrow",
                 "Spoiled billionaire playboy Oliver Queen is missing and presumed dead when his yacht is lost at sea. He returns five years later a changed man, determined to clean up the city as a hooded vigilante armed with a bow.",
@@ -146,7 +146,7 @@ object DataDummy {
                 R.drawable.poster_arrow
             )
         )
-        TVShow.add(
+        tvshow.add(
             TVShowEntity(
                 "Doom Patrol",
                 "The Doom Patrol’s members each suffered horrible accidents that gave them superhuman abilities — but also left them scarred and disfigured. Traumatized and downtrodden, the team found purpose through The Chief, who brought them together to investigate the weirdest phenomena in existence — and to protect Earth from what they find.",
@@ -158,7 +158,7 @@ object DataDummy {
                 R.drawable.poster_doom_patrol
             )
         )
-        TVShow.add(
+        tvshow.add(
             TVShowEntity(
                 "Dragon Ball Absalon",
                 "The series begins twelve years after Goku is seen leaving on Shenron not at the end of Dragon Ball GT, and diverges entirely into its own plot from there, on an alternate timeline from the one which shows Goku Jr. fighting Vegeta Jr. at the World Martial Arts Tournament. In this series, Majuub has reached new levels of power, and has honed the techniques taught to him by Goku.",
@@ -170,7 +170,7 @@ object DataDummy {
                 R.drawable.poster_dragon_ball
             )
         )
-        TVShow.add(
+        tvshow.add(
             TVShowEntity(
                 "Fairy Tail: Dragon Cry",
                 "Natsu Dragneel and his friends travel to the island Kingdom of Stella, where they will reveal dark secrets, fight the new enemies and once again save the world from destruction.",
@@ -182,7 +182,7 @@ object DataDummy {
                 R.drawable.poster_fairytail
             )
         )
-        TVShow.add(
+        tvshow.add(
             TVShowEntity(
                 "Family Guy",
                 "Sick, twisted, politically incorrect and Freakin' Sweet animated series featuring the adventures of the dysfunctional Griffin family. Bumbling Peter and long-suffering Lois have three kids. Stewie (a brilliant but sadistic baby bent on killing his mother and taking over the world), Meg (the oldest, and is the most unpopular girl in town) and Chris (the middle kid, he's not very bright but has a passion for movies). ",
@@ -194,7 +194,7 @@ object DataDummy {
                 R.drawable.poster_family_guy
             )
         )
-        TVShow.add(
+        tvshow.add(
             TVShowEntity(
                 "The Flash",
                 "After a particle accelerator causes a freak storm, CSI Investigator Barry Allen is struck by lightning and falls into a coma. Months later he awakens with the power of super speed, granting him the ability to move through Central City like an unseen guardian angel. Though initially excited by his newfound powers, Barry is shocked to discover he is not the only \"meta-human\" who was created in the wake of the accelerator explosion -- and not everyone is using their new powers for good. ",
@@ -206,7 +206,7 @@ object DataDummy {
                 R.drawable.poster_flash
             )
         )
-        TVShow.add(
+        tvshow.add(
             TVShowEntity(
                 "Game of Thrones",
                 "Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and icy horrors beyond.",
@@ -218,7 +218,7 @@ object DataDummy {
                 R.drawable.poster_god
             )
         )
-        TVShow.add(
+        tvshow.add(
             TVShowEntity(
                 "Gotham",
                 "Everyone knows the name Commissioner Gordon. He is one of the crime world's greatest foes, a man whose reputation is synonymous with law and order. But what is known of Gordon's story and his rise from rookie detective to Police Commissioner? What did it take to navigate the multiple layers of corruption that secretly ruled Gotham City, the spawning ground of the world's most iconic villains? And what circumstances created them – the larger-than-life personas who would become Catwoman, The Penguin, The Riddler, Two-Face and The Joker?",
@@ -230,7 +230,7 @@ object DataDummy {
                 R.drawable.poster_gotham
             )
         )
-        TVShow.add(
+        tvshow.add(
             TVShowEntity(
                 "Grey's Anatomy",
                 "Follows the personal and professional lives of a group of doctors at Seattle’s Grey Sloan Memorial Hospital.",
@@ -242,7 +242,7 @@ object DataDummy {
                 R.drawable.poster_grey_anatomy
             )
         )
-        TVShow.add(
+        tvshow.add(
             TVShowEntity(
                 "Hanna",
                 "Follows the personal and professional lives of a group of doctors at Seattle’s Grey Sloan Memorial Hospital.",
@@ -255,6 +255,6 @@ object DataDummy {
             )
         )
 
-        return TVShow
+        return tvshow
     }
 }

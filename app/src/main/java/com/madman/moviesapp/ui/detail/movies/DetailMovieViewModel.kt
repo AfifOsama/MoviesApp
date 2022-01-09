@@ -13,7 +13,7 @@ class DetailMovieViewModel: ViewModel() {
 
     fun getMovie(): MoviesEntity {
         lateinit var movie: MoviesEntity
-        val movieEntities = DataDummy.generateDummyMovies()
+        val movieEntities = DataDummy.generateMovies()
         for (movieEntity in movieEntities) {
             if (movieEntity.title == movieId) {
                 movie = movieEntity

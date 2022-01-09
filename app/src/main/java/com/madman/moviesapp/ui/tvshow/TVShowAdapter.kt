@@ -29,8 +29,8 @@ class TVShowAdapter(private val callback: TVShowFragmentCallback) :
     }
 
     override fun onBindViewHolder(holder: TVShowAdapter.ViewHolder, position: Int) {
-        val TVshow = listTVshow[position]
-        holder.bind(TVshow)
+        val tvshow = listTVshow[position]
+        holder.bind(tvshow)
     }
 
     override fun getItemCount(): Int = listTVshow.size
