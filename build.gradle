@@ -24,7 +24,8 @@ buildscript {
         materialVersion = '1.4.0'
         recyclerViewVersion = '1.2.1'
         glideVersion = '4.12.0'
-        kotlin_version = '1.6.10'
+        legacyVersion = '1.0.0'
+        splittiesVersion = '3.0.0'
     }
 }
 

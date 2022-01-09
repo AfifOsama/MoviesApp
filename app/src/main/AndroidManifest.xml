@@ -13,6 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoviesApp">
         <activity
+            android:name=".ui.SplashScreenActivity"
+            android:exported="true"
+            android:theme="@style/splashScreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".ui.detail.tvshow.DetailTvshowActivity"
             android:exported="false"
             android:label="@string/title_activity_detail_tvshow"
@@ -34,13 +44,8 @@
         </activity>
         <activity
             android:name=".ui.home.HomeActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
