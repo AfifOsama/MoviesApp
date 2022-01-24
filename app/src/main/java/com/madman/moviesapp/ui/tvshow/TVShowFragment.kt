@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.madman.moviesapp.R
-import com.madman.moviesapp.data.TVShowEntity
+import com.madman.moviesapp.data.resource.local.entity.TVShowEntity
 import com.madman.moviesapp.databinding.FragmentTVShowBinding
 
 class TVShowFragment : Fragment(), TVShowFragmentCallback {

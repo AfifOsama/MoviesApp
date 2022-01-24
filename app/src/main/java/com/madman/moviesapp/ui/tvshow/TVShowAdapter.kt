@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.madman.moviesapp.R
-import com.madman.moviesapp.data.TVShowEntity
+import com.madman.moviesapp.data.resource.local.entity.TVShowEntity
 import com.madman.moviesapp.databinding.ItemsMoviesBinding
 import com.madman.moviesapp.ui.detail.tvshow.DetailTvshowActivity
 

@@ -60,6 +60,10 @@ class HomeActivityTest {
 
         onView(withId(R.id.img_movie)).check(matches(isDisplayed()))
         onView(withId(R.id.img_poster)).check(matches(isDisplayed()))
+
+        onView(withId(R.id.tb_favorite)).check(matches(isDisplayed()))
+        onView(withId(R.id.tb_favorite)).perform(click())
+        onView(withId(R.id.tb_favorite)).check(matches(isChecked()))
     }
 
     @Test
@@ -105,5 +109,9 @@ class HomeActivityTest {
 
         onView(withId(R.id.img_movie)).check(matches(isDisplayed()))
         onView(withId(R.id.img_poster)).check(matches(isDisplayed()))
+
+        onView(withId(R.id.tb_favorite)).check(matches(isDisplayed()))
+        onView(withId(R.id.tb_favorite)).perform(click())
+        onView(withId(R.id.tb_favorite)).check(matches(isChecked()))
     }
 }

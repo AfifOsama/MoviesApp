@@ -1,7 +1,7 @@
 package com.madman.moviesapp.ui.detail.movies
 
 import androidx.lifecycle.ViewModel
-import com.madman.moviesapp.data.MoviesEntity
+import com.madman.moviesapp.data.resource.local.entity.MoviesEntity
 import com.madman.moviesapp.utils.DataDummy
 
 class DetailMovieViewModel: ViewModel() {

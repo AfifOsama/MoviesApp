@@ -1,12 +1,13 @@
 package com.madman.moviesapp.ui.detail.movies
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.madman.moviesapp.R
-import com.madman.moviesapp.data.MoviesEntity
+import com.madman.moviesapp.data.resource.local.entity.MoviesEntity
 import com.madman.moviesapp.databinding.ActivityDetailMovieBinding
 import com.madman.moviesapp.databinding.ContentDetailMovieBinding
 
@@ -35,6 +36,15 @@ class DetailMovieActivity : AppCompatActivity() {
             if (movieName != null) {
                 movieViewModel.selectedMovie(movieName)
                 populateMovies(movieViewModel.getMovie())
+            }
+        }
+        contentBinding.tbFavorite.setOnClickListener {
+            if (contentBinding.tbFavorite.isChecked) {
+                Toast.makeText(
+                    this@DetailMovieActivity,
+                    "You've favorite this movie",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

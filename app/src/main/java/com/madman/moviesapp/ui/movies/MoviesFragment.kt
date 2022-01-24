@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.madman.moviesapp.R
-import com.madman.moviesapp.data.MoviesEntity
+import com.madman.moviesapp.data.resource.local.entity.MoviesEntity
 import com.madman.moviesapp.databinding.FragmentMovieBinding
 
 class MoviesFragment : Fragment(), MoviesFragmentCallback {

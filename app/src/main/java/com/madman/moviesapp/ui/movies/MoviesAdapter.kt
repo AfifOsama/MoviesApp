@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.madman.moviesapp.R
-import com.madman.moviesapp.data.MoviesEntity
+import com.madman.moviesapp.data.resource.local.entity.MoviesEntity
 import com.madman.moviesapp.databinding.ItemsMoviesBinding
 import com.madman.moviesapp.ui.detail.movies.DetailMovieActivity
 
@@ -40,6 +40,7 @@ class MoviesAdapter(private val callback: MoviesFragmentCallback) :
         fun bind(movies: MoviesEntity) {
             with(binding) {
                 tvTitle.text = movies.title
+                tvDescription.text = movies.description
                 tvReleaseDate.text = movies.releaseDate
                 Glide.with(itemView.context)
                     .load(movies.imgPath)
