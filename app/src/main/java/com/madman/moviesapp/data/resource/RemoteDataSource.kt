@@ -7,7 +7,7 @@ import com.madman.moviesapp.utils.EspressoIdlingResource
 import retrofit2.await
 
 class RemoteDataSource {
-    suspend fun getNowPlayingMovies(
+    suspend fun getMovies(
         callback: LoadMoviesCallback
     ) {
         EspressoIdlingResource.increment()

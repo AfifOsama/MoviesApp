@@ -17,7 +17,7 @@ class MoviesAppRepository private constructor(private val remoteDataSource: Remo
     override fun getMovies(): LiveData<List<MoviesEntity>> {
         val listMovieResult = MutableLiveData<List<MoviesEntity>>()
         CoroutineScope(Dispatchers.IO).launch {
-            remoteDataSource.getNowPlayingMovies(object : RemoteDataSource.LoadMoviesCallback {
+            remoteDataSource.getMovies(object : RemoteDataSource.LoadMoviesCallback {
                 override fun onAllMoviesReceived(movieResponse: List<MovieResponse>) {
                     val movieList = ArrayList<MoviesEntity>()
                     for (response in movieResponse) {

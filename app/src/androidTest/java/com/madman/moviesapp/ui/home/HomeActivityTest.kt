@@ -1,7 +1,9 @@
 package com.madman.moviesapp.ui.home
 
 import androidx.recyclerview.widget.RecyclerView
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
@@ -9,6 +11,9 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.madman.moviesapp.R
 import com.madman.moviesapp.utils.DataDummy
+import com.madman.moviesapp.utils.EspressoIdlingResource
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
@@ -18,6 +23,17 @@ class HomeActivityTest {
 
     @get:Rule
     var activityRule = ActivityScenarioRule(HomeActivity::class.java)
+
+    @Before
+    fun setUp() {
+        ActivityScenario.launch(HomeActivity::class.java)
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.idlingResource)
+    }
+
+    @After
+    fun tearDown() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.idlingResource)
+    }
 
     @Test
     fun loadMovies() {
@@ -38,19 +54,15 @@ class HomeActivityTest {
             )
         )
         onView(withId(R.id.tv_title)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_title)).check(matches(withText(dummyMovies[0].title)))
 
         onView(withId(R.id.tv_description)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_description)).check(matches(withText(dummyMovies[0].description)))
-
 
         onView(withId(R.id.tv_release_date)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_release_date)).check(matches(withText(dummyMovies[0].releaseDate)))
 
         onView(withId(R.id.tv_score)).check(matches(isDisplayed()))
-//        onView(withId(R.id.tv_score)).check(matches(withText(dummyMovies[0].score.toString())))
 
         onView(withId(R.id.img_movie)).check(matches(isDisplayed()))
+
         onView(withId(R.id.img_poster)).check(matches(isDisplayed()))
 
         onView(withId(R.id.tb_favorite)).check(matches(isDisplayed()))
@@ -79,18 +91,15 @@ class HomeActivityTest {
             )
         )
         onView(withId(R.id.tv_title)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_title)).check(matches(withText(dummyTvshow[0].title)))
 
         onView(withId(R.id.tv_description)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_description)).check(matches(withText(dummyTvshow[0].description)))
 
         onView(withId(R.id.tv_release_date)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_release_date)).check(matches(withText(dummyTvshow[0].releaseDate)))
 
         onView(withId(R.id.tv_score)).check(matches(isDisplayed()))
-//        onView(withId(R.id.tv_score)).check(matches(withText(dummyTvshow[0].score)))
 
         onView(withId(R.id.img_movie)).check(matches(isDisplayed()))
+
         onView(withId(R.id.img_poster)).check(matches(isDisplayed()))
 
         onView(withId(R.id.tb_favorite)).check(matches(isDisplayed()))

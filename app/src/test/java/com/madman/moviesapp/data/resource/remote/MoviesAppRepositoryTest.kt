@@ -41,13 +41,13 @@ class MoviesAppRepositoryTest {
                     listMovieResponse
                 )
                 null
-            }.`when`(remote).getNowPlayingMovies(any())
+            }.`when`(remote).getMovies(any())
         }
 
         val movieEntity = LiveDataTestUtil.getValue(movieAppRepository.getMovies())
 
         runBlocking {
-            verify(remote).getNowPlayingMovies(any())
+            verify(remote).getMovies(any())
         }
 
         assertNotNull(movieEntity)
@@ -81,10 +81,10 @@ class MoviesAppRepositoryTest {
                     listTvShowResponse
                 )
                 null
-            }.`when`(remote).getNowPlayingMovies(any())
+            }.`when`(remote).getTvShow(any())
         }
 
-        val tvShowEntity = LiveDataTestUtil.getValue(movieAppRepository.getMovies())
+        val tvShowEntity = LiveDataTestUtil.getValue(movieAppRepository.getTvShow())
 
         runBlocking {
             verify(remote).getTvShow(any())
@@ -106,7 +106,7 @@ class MoviesAppRepositoryTest {
         val tvShowEntity = LiveDataTestUtil.getValue(movieAppRepository.getTvShowDetail(tvShowId))
 
         runBlocking {
-            verify(remote).getMovieDetail(eq(movieId), any())
+            verify(remote).getTvShowDetail(eq(movieId), any())
         }
 
         assertNotNull(tvShowEntity)

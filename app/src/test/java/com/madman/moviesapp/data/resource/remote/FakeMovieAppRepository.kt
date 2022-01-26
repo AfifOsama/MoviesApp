@@ -17,7 +17,7 @@ class FakeMoviesAppRepository constructor(private val remoteDataSource: RemoteDa
     override fun getMovies(): LiveData<List<MoviesEntity>> {
         val listMovieResult = MutableLiveData<List<MoviesEntity>>()
         CoroutineScope(Dispatchers.IO).launch {
-            remoteDataSource.getNowPlayingMovies(object : RemoteDataSource.LoadMoviesCallback {
+            remoteDataSource.getMovies(object : RemoteDataSource.LoadMoviesCallback {
                 override fun onAllMoviesReceived(movieResponse: List<MovieResponse>) {
                     val movieList = ArrayList<MoviesEntity>()
                     for (response in movieResponse) {
@@ -67,7 +67,7 @@ class FakeMoviesAppRepository constructor(private val remoteDataSource: RemoteDa
     override fun getTvShow(): LiveData<List<TVShowEntity>> {
         val listTvShowResult = MutableLiveData<List<TVShowEntity>>()
         CoroutineScope(Dispatchers.IO).launch {
-            remoteDataSource.getTvShowOnTheAir(object : RemoteDataSource.LoadTvShowCallback {
+            remoteDataSource.getTvShow(object : RemoteDataSource.LoadTvShowCallback {
                 override fun onAllTvShowsReceived(tvShowResponse: List<TVShowResponse>) {
                     val tvShowList = ArrayList<TVShowEntity>()
                     for (response in tvShowResponse) {

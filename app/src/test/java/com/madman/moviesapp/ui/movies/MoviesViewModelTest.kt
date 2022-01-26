@@ -11,9 +11,12 @@ import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.junit.MockitoJUnitRunner
 
+@RunWith(MockitoJUnitRunner::class)
 class MoviesViewModelTest {
     private lateinit var viewModel: MoviesViewModel
 
@@ -41,7 +44,7 @@ class MoviesViewModelTest {
         val moviesEntity = viewModel.getMovies().value
         Mockito.verify<MoviesAppRepository>(moviesAppRepository).getMovies()
         assertNotNull(moviesEntity)
-        assertEquals(5, moviesEntity?.size)
+        assertEquals(10, moviesEntity?.size)
 
         viewModel.getMovies().observeForever(observer)
         Mockito.verify(observer).onChanged(dummyMovies)
