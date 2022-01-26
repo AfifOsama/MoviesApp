@@ -7,14 +7,17 @@ import android.view.ViewGroup
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.madman.moviesapp.R
 import com.madman.moviesapp.data.resource.local.entity.TVShowEntity
 import com.madman.moviesapp.databinding.FragmentTVShowBinding
+import com.madman.moviesapp.ui.movies.MoviesViewModel
+import com.madman.moviesapp.viewmodel.ViewModelFactory
 
 class TVShowFragment : Fragment(), TVShowFragmentCallback {
     private lateinit var binding: FragmentTVShowBinding
-    private val viewModel: TVShowViewModel by viewModels()
+    private lateinit var  viewModel: TVShowViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,13 +28,18 @@ class TVShowFragment : Fragment(), TVShowFragmentCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val factory= ViewModelFactory.getInstance()
+        viewModel = ViewModelProvider(this,factory)[TVShowViewModel::class.java]
         if (activity != null) {
-            val tvshow = viewModel.getTVShow()
             val tvShowAdapter = TVShowAdapter(this)
-            tvShowAdapter.setTVshow(tvshow)
+            binding.progressBar.visibility = View.VISIBLE
+            viewModel.getTVShow().observe(viewLifecycleOwner, {
+                binding.progressBar.visibility = View.GONE
+                tvShowAdapter.setTVshow(it)
+                tvShowAdapter.notifyDataSetChanged()
+            })
             with(binding) {
-                progressBar.visibility = View.GONE
-                rvTvshow.layoutManager = LinearLayoutManager(activity)
+                rvTvshow.layoutManager = LinearLayoutManager(context)
                 rvTvshow.setHasFixedSize(true)
                 rvTvshow.adapter = tvShowAdapter
             }

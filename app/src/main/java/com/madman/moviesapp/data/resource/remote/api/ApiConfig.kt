@@ -12,7 +12,7 @@ object ApiConfig {
     private val retrofit: Retrofit.Builder by lazy {
         Retrofit.Builder().apply {
             client(httpClient)
-            baseUrl("http://api.themoviedb.org/3/")
+            baseUrl("https://api.themoviedb.org/3/")
             addConverterFactory(GsonConverterFactory.create())
         }
     }

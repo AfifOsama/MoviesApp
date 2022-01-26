@@ -10,6 +10,9 @@ import com.madman.moviesapp.R
 import com.madman.moviesapp.data.resource.local.entity.MoviesEntity
 import com.madman.moviesapp.databinding.ItemsMoviesBinding
 import com.madman.moviesapp.ui.detail.movies.DetailMovieActivity
+import com.madman.moviesapp.utils.GlideHelper.API_IMG_ENDPOINT
+import com.madman.moviesapp.utils.GlideHelper.ENDPOINT_IMG_SIZE_W185
+import com.madman.moviesapp.utils.GlideHelper.glideImage
 
 class MoviesAdapter(private val callback: MoviesFragmentCallback) :
     RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
@@ -42,15 +45,11 @@ class MoviesAdapter(private val callback: MoviesFragmentCallback) :
                 tvTitle.text = movies.title
                 tvDescription.text = movies.description
                 tvReleaseDate.text = movies.releaseDate
-                Glide.with(itemView.context)
-                    .load(movies.imgPath)
-                    .apply(RequestOptions.placeholderOf(R.drawable.ic_loading))
-                    .error(R.drawable.ic_error)
-                    .into(imgMovie)
+                glideImage(itemView.context, API_IMG_ENDPOINT + ENDPOINT_IMG_SIZE_W185 + movies.imgPosterPath, imgMovie)
                 btnShare.setOnClickListener { callback.onShareClick(movies) }
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailMovieActivity::class.java)
-                    intent.putExtra(DetailMovieActivity.EXTRA_DETAIL, movies.title)
+                    intent.putExtra(DetailMovieActivity.EXTRA_DETAIL, movies.id)
                     itemView.context.startActivity(intent)
                 }
             }

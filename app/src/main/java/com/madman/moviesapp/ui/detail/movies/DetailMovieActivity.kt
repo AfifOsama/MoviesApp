@@ -1,20 +1,23 @@
 package com.madman.moviesapp.ui.detail.movies
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.madman.moviesapp.R
 import com.madman.moviesapp.data.resource.local.entity.MoviesEntity
 import com.madman.moviesapp.databinding.ActivityDetailMovieBinding
 import com.madman.moviesapp.databinding.ContentDetailMovieBinding
+import com.madman.moviesapp.utils.GlideHelper
+import com.madman.moviesapp.viewmodel.ViewModelFactory
 
 class DetailMovieActivity : AppCompatActivity() {
 
     private lateinit var contentBinding: ContentDetailMovieBinding
-    private val movieViewModel: DetailMovieViewModel by viewModels()
+    private lateinit var movieViewModel: DetailMovieViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -30,14 +33,14 @@ class DetailMovieActivity : AppCompatActivity() {
     }
 
     private fun initiateUI() {
-        val extras = intent.extras
-        if (extras != null) {
-            val movieName = extras.getString(EXTRA_DETAIL)
-            if (movieName != null) {
-                movieViewModel.selectedMovie(movieName)
-                populateMovies(movieViewModel.getMovie())
-            }
-        }
+        val factory = ViewModelFactory.getInstance()
+        movieViewModel = ViewModelProvider(this, factory)[DetailMovieViewModel::class.java]
+        val extrasId = intent.getIntExtra(EXTRA_DETAIL, 0)
+        contentBinding.progressBar.visibility = View.VISIBLE
+        movieViewModel.getMovie(extrasId).observe(this, {
+            contentBinding.progressBar.visibility = View.GONE
+            populateMovies(it)
+        })
         contentBinding.tbFavorite.setOnClickListener {
             if (contentBinding.tbFavorite.isChecked) {
                 Toast.makeText(
@@ -53,21 +56,18 @@ class DetailMovieActivity : AppCompatActivity() {
         with(contentBinding) {
             tvTitle.text = movie.title
             tvDescription.text = movie.description
-            tvDirector.text = movie.director
-            tvGenre.text = movie.genre
-            tvRating.text = movie.rating
-            tvScore.text = movie.score
+            tvScore.text = movie.score.toString()
             tvReleaseDate.text = movie.releaseDate
-            Glide.with(this@DetailMovieActivity)
-                .load(movie.imgPath)
-                .apply(RequestOptions.placeholderOf(R.drawable.ic_loading))
-                .error(R.drawable.ic_error)
-                .into(imgMovie)
-            Glide.with(this@DetailMovieActivity)
-                .load(movie.imgPath)
-                .apply(RequestOptions.placeholderOf(R.drawable.ic_loading))
-                .error(R.drawable.ic_error)
-                .into(imgPoster)
+            GlideHelper.glideImage(
+                this@DetailMovieActivity,
+                GlideHelper.API_IMG_ENDPOINT + GlideHelper.ENDPOINT_IMG_SIZE_W185 + movie.imgPosterPath,
+                imgPoster
+            )
+            GlideHelper.glideImage(
+                this@DetailMovieActivity,
+                GlideHelper.API_IMG_ENDPOINT + GlideHelper.ENDPOINT_IMG_SIZE_W780 + movie.imgPreviewPath,
+                imgMovie
+            )
         }
     }
 

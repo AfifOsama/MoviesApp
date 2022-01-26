@@ -7,14 +7,16 @@ import android.view.ViewGroup
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.madman.moviesapp.R
 import com.madman.moviesapp.data.resource.local.entity.MoviesEntity
 import com.madman.moviesapp.databinding.FragmentMovieBinding
+import com.madman.moviesapp.viewmodel.ViewModelFactory
 
 class MoviesFragment : Fragment(), MoviesFragmentCallback {
     private lateinit var binding: FragmentMovieBinding
-    private val viewModel: MoviesViewModel by viewModels()
+    private lateinit var viewModel: MoviesViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,12 +28,20 @@ class MoviesFragment : Fragment(), MoviesFragmentCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
-            val movies = viewModel.getMovies()
+            val factory=ViewModelFactory.getInstance()
+            viewModel = ViewModelProvider(this,factory)[MoviesViewModel::class.java]
+
             val moviesAdapter = MoviesAdapter(this)
-            moviesAdapter.setMovies(movies)
+
+            binding.progressBar.visibility = View.VISIBLE
+            viewModel.getMovies().observe(viewLifecycleOwner, {
+                binding.progressBar.visibility = View.GONE
+                moviesAdapter.setMovies(it)
+                moviesAdapter.notifyDataSetChanged()
+            })
+
             with(binding) {
-                progressBar.visibility = View.GONE
-                rvMovies.layoutManager = LinearLayoutManager(activity)
+                rvMovies.layoutManager = LinearLayoutManager(context)
                 rvMovies.setHasFixedSize(true)
                 rvMovies.adapter = moviesAdapter
             }

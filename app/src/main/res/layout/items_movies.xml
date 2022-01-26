@@ -40,7 +40,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/tv_release_date"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_share"
             app:layout_constraintStart_toEndOf="@id/img_movie"
             app:layout_constraintTop_toTopOf="parent" />
 

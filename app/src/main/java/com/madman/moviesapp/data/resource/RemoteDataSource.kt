@@ -37,7 +37,7 @@ class RemoteDataSource {
         fun onMovieDetailReceived(movieResponse: MovieResponse)
     }
 
-    suspend fun getTvShowOnTheAir(callback: LoadTvShowCallback) {
+    suspend fun getTvShow(callback: LoadTvShowCallback) {
         EspressoIdlingResource.increment()
         ApiConfig.instance.getTvShow().await().result?.let {
             callback.onAllTvShowsReceived(

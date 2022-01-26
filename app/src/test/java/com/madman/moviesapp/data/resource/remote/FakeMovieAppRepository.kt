@@ -11,7 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MoviesAppRepository private constructor(private val remoteDataSource: RemoteDataSource) :
+class FakeMoviesAppRepository constructor(private val remoteDataSource: RemoteDataSource) :
     MoviesAppDataStore {
 
     override fun getMovies(): LiveData<List<MoviesEntity>> {
@@ -67,7 +67,7 @@ class MoviesAppRepository private constructor(private val remoteDataSource: Remo
     override fun getTvShow(): LiveData<List<TVShowEntity>> {
         val listTvShowResult = MutableLiveData<List<TVShowEntity>>()
         CoroutineScope(Dispatchers.IO).launch {
-            remoteDataSource.getTvShow(object : RemoteDataSource.LoadTvShowCallback {
+            remoteDataSource.getTvShowOnTheAir(object : RemoteDataSource.LoadTvShowCallback {
                 override fun onAllTvShowsReceived(tvShowResponse: List<TVShowResponse>) {
                     val tvShowList = ArrayList<TVShowEntity>()
                     for (response in tvShowResponse) {
@@ -116,13 +116,4 @@ class MoviesAppRepository private constructor(private val remoteDataSource: Remo
         return tvShowResult
     }
 
-    companion object {
-        @Volatile
-        private var instance: MoviesAppRepository? = null
-
-        fun getInstance(remoteDataSource: RemoteDataSource): MoviesAppRepository =
-            instance ?: synchronized(this) {
-                instance ?: MoviesAppRepository(remoteDataSource)
-            }
-    }
 }

@@ -10,6 +10,7 @@ import com.madman.moviesapp.R
 import com.madman.moviesapp.data.resource.local.entity.TVShowEntity
 import com.madman.moviesapp.databinding.ItemsMoviesBinding
 import com.madman.moviesapp.ui.detail.tvshow.DetailTvshowActivity
+import com.madman.moviesapp.utils.GlideHelper
 
 class TVShowAdapter(private val callback: TVShowFragmentCallback) :
     RecyclerView.Adapter<TVShowAdapter.ViewHolder>() {
@@ -42,15 +43,15 @@ class TVShowAdapter(private val callback: TVShowFragmentCallback) :
                 tvTitle.text = TVshow.title
                 tvReleaseDate.text = TVshow.releaseDate
                 tvDescription.text = TVshow.description
-                Glide.with(itemView.context)
-                    .load(TVshow.imgPath)
-                    .apply(RequestOptions.placeholderOf(R.drawable.ic_loading))
-                    .error(R.drawable.ic_error)
-                    .into(imgMovie)
+                GlideHelper.glideImage(
+                    itemView.context,
+                    GlideHelper.API_IMG_ENDPOINT + GlideHelper.ENDPOINT_IMG_SIZE_W185 + TVshow.imgPosterPath,
+                    imgMovie
+                )
                 btnShare.setOnClickListener { callback.onShareClick(TVshow) }
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailTvshowActivity::class.java)
-                    intent.putExtra(DetailTvshowActivity.EXTRA_DETAIL, TVshow.title)
+                    intent.putExtra(DetailTvshowActivity.EXTRA_DETAIL, TVshow.id)
                     itemView.context.startActivity(intent)
                 }
             }

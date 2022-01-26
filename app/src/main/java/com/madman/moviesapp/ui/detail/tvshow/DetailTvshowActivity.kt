@@ -1,19 +1,22 @@
 package com.madman.moviesapp.ui.detail.tvshow
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.madman.moviesapp.R
 import com.madman.moviesapp.data.resource.local.entity.TVShowEntity
 import com.madman.moviesapp.databinding.ActivityDetailTvshowBinding
 import com.madman.moviesapp.databinding.ContentDetailTvshowBinding
+import com.madman.moviesapp.utils.GlideHelper
+import com.madman.moviesapp.viewmodel.ViewModelFactory
 
 class DetailTvshowActivity : AppCompatActivity() {
     private lateinit var contentBinding: ContentDetailTvshowBinding
-    private val viewModel: DetailTvshowViewModel by viewModels()
+    private lateinit var tvShowViewModel: DetailTvshowViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,14 +32,14 @@ class DetailTvshowActivity : AppCompatActivity() {
     }
 
     private fun initiateUI() {
-        val extras = intent.extras
-        if (extras != null) {
-            val tvshowName = extras.getString(EXTRA_DETAIL)
-            if (tvshowName != null) {
-                viewModel.selectedTVshow(tvshowName)
-                populateTvshow(viewModel.getTVshow())
-            }
-        }
+        val factory = ViewModelFactory.getInstance()
+        tvShowViewModel = ViewModelProvider(this, factory)[DetailTvshowViewModel::class.java]
+        val extrasId = intent.getIntExtra(EXTRA_DETAIL, 0)
+        contentBinding.progressBar.visibility = View.VISIBLE
+        tvShowViewModel.getTVshow(extrasId).observe(this, {
+            contentBinding.progressBar.visibility = View.GONE
+            populateTvshow(it)
+        })
         contentBinding.tbFavorite.setOnClickListener {
             if (contentBinding.tbFavorite.isChecked) {
                 Toast.makeText(
@@ -52,21 +55,18 @@ class DetailTvshowActivity : AppCompatActivity() {
         with(contentBinding) {
             tvTitle.text = TVshow.title
             tvDescription.text = TVshow.description
-            tvDirector.text = TVshow.director
-            tvGenre.text = TVshow.genre
-            tvRating.text = TVshow.rating
-            tvScore.text = TVshow.score
+            tvScore.text = TVshow.score.toString()
             tvReleaseDate.text = TVshow.releaseDate
-            Glide.with(this@DetailTvshowActivity)
-                .load(TVshow.imgPath)
-                .apply(RequestOptions.placeholderOf(R.drawable.ic_loading))
-                .error(R.drawable.ic_error)
-                .into(imgMovie)
-            Glide.with(this@DetailTvshowActivity)
-                .load(TVshow.imgPath)
-                .apply(RequestOptions.placeholderOf(R.drawable.ic_loading))
-                .error(R.drawable.ic_error)
-                .into(imgPoster)
+            GlideHelper.glideImage(
+                this@DetailTvshowActivity,
+                GlideHelper.API_IMG_ENDPOINT + GlideHelper.ENDPOINT_IMG_SIZE_W185 + TVshow.imgPosterPath,
+                imgPoster
+            )
+            GlideHelper.glideImage(
+                this@DetailTvshowActivity,
+                GlideHelper.API_IMG_ENDPOINT + GlideHelper.ENDPOINT_IMG_SIZE_W780 + TVshow.imgPreviewPath,
+                imgMovie
+            )
         }
     }
 
