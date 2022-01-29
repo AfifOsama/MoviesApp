@@ -1,77 +1,69 @@
 package com.madman.moviesapp.data.resource
 
-import com.madman.moviesapp.data.resource.remote.api.ApiConfig
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.madman.moviesapp.data.resource.remote.api.ApiService
 import com.madman.moviesapp.data.resource.remote.response.MovieResponse
 import com.madman.moviesapp.data.resource.remote.response.TVShowResponse
+import com.madman.moviesapp.data.resource.remote.vo.ApiResponse
 import com.madman.moviesapp.utils.EspressoIdlingResource
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.await
+import java.io.IOException
 
-class RemoteDataSource {
-    suspend fun getMovies(
-        callback: LoadMoviesCallback
-    ) {
+class RemoteDataSource constructor(private val apiService: ApiService) {
+    fun getMovies(): LiveData<ApiResponse<List<MovieResponse>>> {
         EspressoIdlingResource.increment()
-        ApiConfig.instance.getMovies().await().result?.let {
-            callback.onAllMoviesReceived(
-                it
-            )
-            EspressoIdlingResource.decrement()
+        val resultResponse = MutableLiveData<ApiResponse<List<MovieResponse>>>()
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = apiService.getMovies().await()
+                resultResponse.postValue(ApiResponse.success(response.result!!))
+            } catch (e: IOException) {
+                e.printStackTrace()
+                resultResponse.postValue(
+                    ApiResponse.error(
+                        e.message.toString(),
+                        mutableListOf()
+                    )
+                )
+            }
         }
+        EspressoIdlingResource.decrement()
+        return resultResponse
     }
 
-    interface LoadMoviesCallback {
-        fun onAllMoviesReceived(movieResponse: List<MovieResponse>)
-    }
-
-    suspend fun getMovieDetail(movieId: Int, callback: LoadMovieDetailCallback) {
+    suspend fun getTvShow(): LiveData<ApiResponse<List<TVShowResponse>>> {
         EspressoIdlingResource.increment()
-        ApiConfig.instance.getDetailMovie(movieId).await().let {
-            callback.onMovieDetailReceived(
-                it
-            )
-            EspressoIdlingResource.decrement()
+        val resultResponse = MutableLiveData<ApiResponse<List<TVShowResponse>>>()
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = apiService.getTvShow().await()
+                resultResponse.postValue(ApiResponse.success(response.result!!))
+            } catch (e: IOException) {
+                e.printStackTrace()
+                resultResponse.postValue(
+                    ApiResponse.error(
+                        e.message.toString(),
+                        mutableListOf()
+                    )
+                )
+            }
         }
+        EspressoIdlingResource.decrement()
+        return resultResponse
     }
 
-    interface LoadMovieDetailCallback {
-        fun onMovieDetailReceived(movieResponse: MovieResponse)
-    }
-
-    suspend fun getTvShow(callback: LoadTvShowCallback) {
-        EspressoIdlingResource.increment()
-        ApiConfig.instance.getTvShow().await().result?.let {
-            callback.onAllTvShowsReceived(
-                it
-            )
-            EspressoIdlingResource.decrement()
-        }
-    }
-
-    interface LoadTvShowCallback {
-        fun onAllTvShowsReceived(tvShowResponse: List<TVShowResponse>)
-    }
-
-    suspend fun getTvShowDetail(tvShowId: Int, callback: LoadTvShowDetailCallback) {
-        EspressoIdlingResource.increment()
-        ApiConfig.instance.getDetailTvShow(tvShowId).await().let {
-            callback.onTvShowDetailReceived(
-                it
-            )
-            EspressoIdlingResource.decrement()
-        }
-    }
-
-    interface LoadTvShowDetailCallback {
-        fun onTvShowDetailReceived(tvShowResponse: TVShowResponse)
-    }
 
     companion object {
         @Volatile
         private var instance: RemoteDataSource? = null
 
-        fun getInstance(): RemoteDataSource =
+        fun getInstance(apiService: ApiService): RemoteDataSource =
             instance ?: synchronized(this) {
-                instance ?: RemoteDataSource()
+                instance ?: RemoteDataSource(apiService)
             }
     }
 }
