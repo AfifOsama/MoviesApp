@@ -10,4 +10,7 @@ class DetailMovieViewModel(private val moviesAppRepository: MoviesAppRepository)
     fun getMovie(id:Int): LiveData<MoviesEntity>{
         return moviesAppRepository.getMovieDetail(id)
     }
+    fun setFavoriteMovie(movie: MoviesEntity){
+        moviesAppRepository.setFavoriteMovie(movie)
+    }
 }

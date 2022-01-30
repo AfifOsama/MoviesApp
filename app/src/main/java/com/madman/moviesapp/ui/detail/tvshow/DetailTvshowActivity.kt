@@ -32,11 +32,11 @@ class DetailTvshowActivity : AppCompatActivity() {
     }
 
     private fun initiateUI() {
-        val factory = ViewModelFactory.getInstance()
+        val factory = ViewModelFactory.getInstance(this)
         tvShowViewModel = ViewModelProvider(this, factory)[DetailTvshowViewModel::class.java]
         val extrasId = intent.getIntExtra(EXTRA_DETAIL, 0)
         contentBinding.progressBar.visibility = View.VISIBLE
-        tvShowViewModel.getTVshow(extrasId).observe(this, {
+        tvShowViewModel.getTvShow(extrasId).observe(this, {
             contentBinding.progressBar.visibility = View.GONE
             populateTvshow(it)
         })

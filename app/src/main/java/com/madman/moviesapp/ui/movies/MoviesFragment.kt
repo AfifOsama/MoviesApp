@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,6 +14,7 @@ import com.madman.moviesapp.R
 import com.madman.moviesapp.data.resource.local.entity.MoviesEntity
 import com.madman.moviesapp.databinding.FragmentMovieBinding
 import com.madman.moviesapp.viewmodel.ViewModelFactory
+import com.madman.moviesapp.vo.Status
 
 class MoviesFragment : Fragment(), MoviesFragmentCallback {
     private lateinit var binding: FragmentMovieBinding
@@ -28,21 +30,29 @@ class MoviesFragment : Fragment(), MoviesFragmentCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
-            val factory=ViewModelFactory.getInstance()
+            val factory=ViewModelFactory.getInstance(requireActivity())
             viewModel = ViewModelProvider(this,factory)[MoviesViewModel::class.java]
 
             val moviesAdapter = MoviesAdapter(this)
 
-            binding.progressBar.visibility = View.VISIBLE
             viewModel.getMovies().observe(viewLifecycleOwner, {
-                binding.progressBar.visibility = View.GONE
-                moviesAdapter.setMovies(it)
-                moviesAdapter.notifyDataSetChanged()
+                if (it != null) {
+                    when (it.status) {
+                        Status.LOADING -> binding.progressBar.visibility = View.VISIBLE
+                        Status.SUCCESS -> {
+                            binding.progressBar.visibility = View.GONE
+                            moviesAdapter.submitList(it.data)
+                        }
+                        Status.ERROR -> {
+                            binding.progressBar.visibility = View.GONE
+                            Toast.makeText(context, "Error: ", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
             })
 
             with(binding) {
                 rvMovies.layoutManager = LinearLayoutManager(context)
-                rvMovies.setHasFixedSize(true)
                 rvMovies.adapter = moviesAdapter
             }
         }

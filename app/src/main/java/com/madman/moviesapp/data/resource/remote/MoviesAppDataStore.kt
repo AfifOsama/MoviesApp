@@ -11,7 +11,7 @@ interface MoviesAppDataStore {
 
     fun getMovieDetail(movieId: Int): LiveData<MoviesEntity>
 
-    fun getTvShow(): LiveData<Resource<PagedList<TVShowEntity>>>
+    fun getTvShows(): LiveData<Resource<PagedList<TVShowEntity>>>
 
     fun getTvShowDetail(tvShowId: Int): LiveData<TVShowEntity>
 

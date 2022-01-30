@@ -6,13 +6,11 @@ import com.madman.moviesapp.data.resource.local.entity.TVShowEntity
 import com.madman.moviesapp.data.resource.remote.MoviesAppRepository
 
 class DetailTvshowViewModel(private val moviesAppRepository: MoviesAppRepository) : ViewModel() {
-//    private lateinit var tvShowName: String
-//
-//    fun selectedTVshow(TVshowId: String) {
-//        this.tvShowName = TVshowId
-//    }
-
-    fun getTVshow(id: Int): LiveData<TVShowEntity> {
+    fun getTvShow(id: Int): LiveData<TVShowEntity> {
         return moviesAppRepository.getTvShowDetail(id)
+    }
+
+    fun setFavoriteTvShow(tvShow: TVShowEntity){
+        moviesAppRepository.setFavoriteTvShow(tvShow)
     }
 }

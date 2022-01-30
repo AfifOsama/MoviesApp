@@ -33,7 +33,7 @@ class DetailMovieActivity : AppCompatActivity() {
     }
 
     private fun initiateUI() {
-        val factory = ViewModelFactory.getInstance()
+        val factory = ViewModelFactory.getInstance(this)
         movieViewModel = ViewModelProvider(this, factory)[DetailMovieViewModel::class.java]
         val extrasId = intent.getIntExtra(EXTRA_DETAIL, 0)
         contentBinding.progressBar.visibility = View.VISIBLE

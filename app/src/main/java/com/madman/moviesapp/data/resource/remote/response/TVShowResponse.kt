@@ -9,7 +9,7 @@ data class TVShowResponse(
     var title: String? = null,
     @SerializedName("overview")
     var description: String? = null,
-    @SerializedName("release_date")
+    @SerializedName("first_air_date")
     var releaseDate: String? = null,
     @SerializedName("vote_average")
     var score: Double? = 0.0,
