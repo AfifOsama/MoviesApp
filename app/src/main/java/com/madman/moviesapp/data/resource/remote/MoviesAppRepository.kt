@@ -3,15 +3,21 @@ package com.madman.moviesapp.data.resource.remote
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.madman.moviesapp.data.resource.RemoteDataSource
+import com.madman.moviesapp.data.resource.local.LocalDataSource
 import com.madman.moviesapp.data.resource.local.entity.MoviesEntity
 import com.madman.moviesapp.data.resource.local.entity.TVShowEntity
 import com.madman.moviesapp.data.resource.remote.response.MovieResponse
 import com.madman.moviesapp.data.resource.remote.response.TVShowResponse
+import com.madman.moviesapp.utils.AppExecutors
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MoviesAppRepository private constructor(private val remoteDataSource: RemoteDataSource) :
+class MoviesAppRepository private constructor(
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource,
+    private val appExecutors: AppExecutors
+) :
     MoviesAppDataStore {
 
     override fun getMovies(): LiveData<List<MoviesEntity>> {
@@ -120,9 +126,11 @@ class MoviesAppRepository private constructor(private val remoteDataSource: Remo
         @Volatile
         private var instance: MoviesAppRepository? = null
 
-        fun getInstance(remoteDataSource: RemoteDataSource): MoviesAppRepository =
+        fun getInstance(remoteData: RemoteDataSource, localData: LocalDataSource, appExecutors: AppExecutors): MoviesAppRepository =
             instance ?: synchronized(this) {
-                instance ?: MoviesAppRepository(remoteDataSource)
+                instance ?: MoviesAppRepository(remoteData, localData, appExecutors).apply {
+                    instance = this
+                }
             }
     }
 }

@@ -14,7 +14,7 @@ interface MoviesAppDao {
     @Query("SELECT * FROM movie_entities WHERE is_favorite = 1")
     fun getFavoriteMovies(): DataSource.Factory<Int, MoviesEntity>
 
-    @Query("SELECT * FROM movie_entities WHERE movie_id = :movieId")
+    @Query("SELECT * FROM movie_entities WHERE id = :movieId")
     fun getDetailMovie(movieId: Int): LiveData<MoviesEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = MoviesEntity::class)
@@ -29,7 +29,7 @@ interface MoviesAppDao {
     @Query("SELECT * FROM tvshow_entities WHERE is_favorite = 1")
     fun getFavoriteTvShows(): DataSource.Factory<Int, TVShowEntity>
 
-    @Query("SELECT * FROM tvshow_entities WHERE tvshow_id = :tvShowId")
+    @Query("SELECT * FROM tvshow_entities WHERE id = :tvShowId")
     fun getDetailTvShow(tvShowId: Int): LiveData<TVShowEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = TVShowEntity::class)

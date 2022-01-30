@@ -14,9 +14,6 @@ class MoviesEntity(
     @ColumnInfo(name = "id")
     var id: Int = 0,
 
-    @NonNull
-    @ColumnInfo(name = "movie_id")
-    var movieId: Int = 0,
     @ColumnInfo(name = "title")
     var title: String? = null,
     @ColumnInfo(name = "description")

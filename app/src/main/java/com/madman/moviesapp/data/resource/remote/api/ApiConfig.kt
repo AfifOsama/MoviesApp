@@ -8,19 +8,14 @@ object ApiConfig {
     private val httpClient = OkHttpClient.Builder().apply {
     }.build()
 
-
-    private val retrofit: Retrofit.Builder by lazy {
-        Retrofit.Builder().apply {
-            client(httpClient)
-            baseUrl("https://api.themoviedb.org/3/")
-            addConverterFactory(GsonConverterFactory.create())
-        }
-    }
-
-    val instance: ApiService by lazy {
-        retrofit
+    fun createApi(): ApiService {
+        val retrofit = Retrofit.Builder()
+            .client(httpClient)
+            .baseUrl("https://api.themoviedb.org/3/")
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(ApiService::class.java)
+
+        return retrofit.create(ApiService::class.java)
     }
 
 }

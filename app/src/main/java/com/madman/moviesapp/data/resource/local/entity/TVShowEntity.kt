@@ -14,9 +14,6 @@ class TVShowEntity(
     @ColumnInfo(name = "id")
     var id: Int = 0,
 
-    @NonNull
-    @ColumnInfo(name = "tvshow_id")
-    var tvShowId: Int = 0,
     @ColumnInfo(name = "title")
     var title: String? = null,
     @ColumnInfo(name = "description")
