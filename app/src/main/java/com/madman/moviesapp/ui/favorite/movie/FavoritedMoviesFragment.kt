@@ -1,20 +1,62 @@
 package com.madman.moviesapp.ui.favorite.movie
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ShareCompat
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.madman.moviesapp.R
+import com.madman.moviesapp.data.resource.local.entity.MoviesEntity
+import com.madman.moviesapp.databinding.FragmentFavoritedMoviesBinding
+import com.madman.moviesapp.ui.movies.MoviesAdapter
+import com.madman.moviesapp.ui.movies.MoviesFragmentCallback
 
-class FavoritedMoviesFragment : Fragment() {
+class FavoritedMoviesFragment : Fragment(), MoviesFragmentCallback {
+    private lateinit var viewModel: FavoriteMoviesViewModel
+    private lateinit var binding: FragmentFavoritedMoviesBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorited_movies, container, false)
+        binding = FragmentFavoritedMoviesBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.progressBar.visibility=View.VISIBLE
+        viewModel.getListFavoriteMovies().observe(viewLifecycleOwner, {
+            if (it != null) {
+                binding.progressBar.visibility=View.GONE
+                binding.rvMovies.adapter?.let { adapter ->
+                    when (adapter) {
+                        is MoviesAdapter -> {
+                            binding.rvMovies.visibility = View.VISIBLE
+                            adapter.submitList(it)
+                            adapter.notifyDataSetChanged()
+                        }
+                    }
+                }
+            }
+        })
+        binding.apply {
+            rvMovies.layoutManager = LinearLayoutManager(context)
+            rvMovies.adapter = MoviesAdapter(this@FavoritedMoviesFragment)
+        }
+    }
+
+    override fun onShareClick(movies: MoviesEntity) {
+        if (activity != null) {
+            val mimeType = "text/plain"
+            ShareCompat.IntentBuilder
+                .from(requireActivity())
+                .setType(mimeType)
+                .setChooserTitle("share this Film.")
+                .setText(resources.getString(R.string.share_text, movies.title))
+                .startChooser()
+        }
+    }
 }
