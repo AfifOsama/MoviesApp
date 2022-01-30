@@ -5,9 +5,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.madman.moviesapp.R
 import com.madman.moviesapp.data.resource.local.entity.MoviesEntity
 import com.madman.moviesapp.databinding.ActivityDetailMovieBinding
 import com.madman.moviesapp.databinding.ContentDetailMovieBinding
@@ -41,18 +38,10 @@ class DetailMovieActivity : AppCompatActivity() {
             contentBinding.progressBar.visibility = View.GONE
             populateMovies(it)
         })
-        contentBinding.tbFavorite.setOnClickListener {
-            if (contentBinding.tbFavorite.isChecked) {
-                Toast.makeText(
-                    this@DetailMovieActivity,
-                    "You've favorite this movie",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
     }
 
     private fun populateMovies(movie: MoviesEntity) {
+        val favStatus = movie.isFavorite
         with(contentBinding) {
             tvTitle.text = movie.title
             tvDescription.text = movie.description
@@ -68,6 +57,29 @@ class DetailMovieActivity : AppCompatActivity() {
                 GlideHelper.API_IMG_ENDPOINT + GlideHelper.ENDPOINT_IMG_SIZE_W780 + movie.imgPreviewPath,
                 imgMovie
             )
+            tbFavorite.setOnClickListener {
+                setFavoriteMovie(movie)
+            }
+            contentBinding.tbFavorite.isChecked = favStatus
+        }
+    }
+
+    private fun setFavoriteMovie(movie: MoviesEntity?) {
+        if (movie != null) {
+            if (movie.isFavorite) {
+                Toast.makeText(
+                    this@DetailMovieActivity,
+                    "You've unfavorite this movie",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                Toast.makeText(
+                    this@DetailMovieActivity,
+                    "You've favorite this movie",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            movieViewModel.setFavoriteMovie(movie)
         }
     }
 

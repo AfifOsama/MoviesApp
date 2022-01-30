@@ -7,6 +7,8 @@ import com.madman.moviesapp.data.resource.remote.MoviesAppRepository
 import com.madman.moviesapp.di.Injection
 import com.madman.moviesapp.ui.detail.movies.DetailMovieViewModel
 import com.madman.moviesapp.ui.detail.tvshow.DetailTvshowViewModel
+import com.madman.moviesapp.ui.favorite.movie.FavoriteMoviesViewModel
+import com.madman.moviesapp.ui.favorite.tvshow.FavoriteTvShowsViewModel
 import com.madman.moviesapp.ui.movies.MoviesViewModel
 import com.madman.moviesapp.ui.tvshow.TVShowViewModel
 
@@ -27,6 +29,12 @@ class ViewModelFactory private constructor(private val mMoviesAppRepository: Mov
             }
             modelClass.isAssignableFrom(DetailTvshowViewModel::class.java) -> {
                 return DetailTvshowViewModel(mMoviesAppRepository) as T
+            }
+            modelClass.isAssignableFrom(FavoriteMoviesViewModel::class.java) -> {
+                return FavoriteMoviesViewModel(mMoviesAppRepository) as T
+            }
+            modelClass.isAssignableFrom(FavoriteTvShowsViewModel::class.java) -> {
+                return FavoriteTvShowsViewModel(mMoviesAppRepository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

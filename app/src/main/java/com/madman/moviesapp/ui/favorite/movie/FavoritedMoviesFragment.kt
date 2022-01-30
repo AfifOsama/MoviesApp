@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.madman.moviesapp.R
 import com.madman.moviesapp.data.resource.local.entity.MoviesEntity
 import com.madman.moviesapp.databinding.FragmentFavoritedMoviesBinding
 import com.madman.moviesapp.ui.movies.MoviesAdapter
 import com.madman.moviesapp.ui.movies.MoviesFragmentCallback
+import com.madman.moviesapp.viewmodel.ViewModelFactory
 
 class FavoritedMoviesFragment : Fragment(), MoviesFragmentCallback {
     private lateinit var viewModel: FavoriteMoviesViewModel
@@ -27,6 +29,8 @@ class FavoritedMoviesFragment : Fragment(), MoviesFragmentCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val factory = ViewModelFactory.getInstance(requireActivity())
+        viewModel = ViewModelProvider(this, factory)[FavoriteMoviesViewModel::class.java]
         binding.progressBar.visibility=View.VISIBLE
         viewModel.getListFavoriteMovies().observe(viewLifecycleOwner, {
             if (it != null) {

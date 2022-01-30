@@ -11,6 +11,7 @@ import com.madman.moviesapp.R
 import com.madman.moviesapp.data.resource.local.entity.TVShowEntity
 import com.madman.moviesapp.databinding.ActivityDetailTvshowBinding
 import com.madman.moviesapp.databinding.ContentDetailTvshowBinding
+import com.madman.moviesapp.ui.tvshow.TVShowViewModel
 import com.madman.moviesapp.utils.GlideHelper
 import com.madman.moviesapp.viewmodel.ViewModelFactory
 
@@ -40,18 +41,10 @@ class DetailTvshowActivity : AppCompatActivity() {
             contentBinding.progressBar.visibility = View.GONE
             populateTvshow(it)
         })
-        contentBinding.tbFavorite.setOnClickListener {
-            if (contentBinding.tbFavorite.isChecked) {
-                Toast.makeText(
-                    this@DetailTvshowActivity,
-                    "You've favorite this TV Show",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
     }
 
     private fun populateTvshow(TVshow: TVShowEntity) {
+        val favStatus = TVshow.isFavorite
         with(contentBinding) {
             tvTitle.text = TVshow.title
             tvDescription.text = TVshow.description
@@ -67,6 +60,29 @@ class DetailTvshowActivity : AppCompatActivity() {
                 GlideHelper.API_IMG_ENDPOINT + GlideHelper.ENDPOINT_IMG_SIZE_W780 + TVshow.imgPreviewPath,
                 imgMovie
             )
+            tbFavorite.setOnClickListener {
+                setFavoriteTvShow(TVshow)
+            }
+            contentBinding.tbFavorite.isChecked = favStatus
+        }
+    }
+
+    private fun setFavoriteTvShow(TVshow: TVShowEntity?) {
+        if (TVshow != null) {
+            if (TVshow.isFavorite) {
+                Toast.makeText(
+                    this@DetailTvshowActivity,
+                    "You've unfavorite this TV Show",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                Toast.makeText(
+                    this@DetailTvshowActivity,
+                    "You've favorite this TV Show",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            tvShowViewModel.setFavoriteTvShow(TVshow)
         }
     }
 
