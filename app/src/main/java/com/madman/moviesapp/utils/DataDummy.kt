@@ -367,7 +367,7 @@ object DataDummy {
         return tvshow
     }
 
-    fun generateRemoteDummyMovies(): List<MovieResponse>{
+    fun generateRemoteDummyMovies(): List<MovieResponse> {
         val movies = ArrayList<MovieResponse>()
         movies.add(
             MovieResponse(

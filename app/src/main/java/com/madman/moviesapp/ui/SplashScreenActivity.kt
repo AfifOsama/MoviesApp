@@ -1,7 +1,7 @@
 package com.madman.moviesapp.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.madman.moviesapp.ui.home.HomeActivity
 import splitties.activities.start
 

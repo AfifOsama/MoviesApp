@@ -109,7 +109,7 @@ class HomeActivityTest {
     }
 
     @Test
-    fun insertAndUpdateFavoriteMovies(){
+    fun insertAndUpdateFavoriteMovies() {
         onView(withId(R.id.rv_movies)).perform(
             actionOnItemAtPosition<RecyclerView.ViewHolder>(
                 4,
@@ -121,13 +121,18 @@ class HomeActivityTest {
         pressBack()
         onView(withId(R.id.favorite)).perform(click())
         onView(withId(R.id.rv_fav_movies)).check(matches(isDisplayed()))
-        onView(withId(R.id.rv_fav_movies)).perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        onView(withId(R.id.rv_fav_movies)).perform(
+            actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                0,
+                click()
+            )
+        )
         onView(withId(R.id.tb_favorite)).perform(click())
 
     }
 
     @Test
-    fun insertAndUpdateFavoriteTvShows(){
+    fun insertAndUpdateFavoriteTvShows() {
         onView(withText("TV Show")).perform(click())
         onView(withId(R.id.rv_tvshow)).perform(
             actionOnItemAtPosition<RecyclerView.ViewHolder>(
@@ -141,7 +146,12 @@ class HomeActivityTest {
         onView(withId(R.id.favorite)).perform(click())
         onView(withText("TV Show")).perform(click())
         onView(withId(R.id.rv_fav_tvshow)).check(matches(isDisplayed()))
-        onView(withId(R.id.rv_fav_tvshow)).perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        onView(withId(R.id.rv_fav_tvshow)).perform(
+            actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                0,
+                click()
+            )
+        )
         onView(withId(R.id.tb_favorite)).perform(click())
         pressBack()
     }

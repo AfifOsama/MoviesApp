@@ -24,12 +24,12 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_main,menu)
+        menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.favorite){
+        if (item.itemId == R.id.favorite) {
             val intent = Intent(this@HomeActivity, FavoriteActivity::class.java)
             startActivity(intent)
         }

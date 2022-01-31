@@ -1,7 +1,6 @@
 package com.madman.moviesapp.data.resource.remote
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.madman.moviesapp.data.NetworkBoundResource
@@ -26,7 +25,8 @@ class MoviesAppRepository private constructor(
     MoviesAppDataStore {
 
     override fun getMovies(): LiveData<Resource<PagedList<MoviesEntity>>> {
-        return object : NetworkBoundResource<PagedList<MoviesEntity>, List<MovieResponse>>(appExecutors) {
+        return object :
+            NetworkBoundResource<PagedList<MoviesEntity>, List<MovieResponse>>(appExecutors) {
             override fun loadFromDB(): LiveData<PagedList<MoviesEntity>> {
                 val config = PagedList.Config.Builder()
                     .setEnablePlaceholders(false)
@@ -99,9 +99,11 @@ class MoviesAppRepository private constructor(
         }.asLiveData()
     }
 
-    override fun getMovieDetail(movieId: Int): LiveData<MoviesEntity> = localDataSource.getMovieDetail(movieId)
+    override fun getMovieDetail(movieId: Int): LiveData<MoviesEntity> =
+        localDataSource.getMovieDetail(movieId)
 
-    override fun getTvShowDetail(tvShowId: Int): LiveData<TVShowEntity> = localDataSource.getTvShowDetail(tvShowId)
+    override fun getTvShowDetail(tvShowId: Int): LiveData<TVShowEntity> =
+        localDataSource.getTvShowDetail(tvShowId)
 
     override fun setFavoriteMovie(movie: MoviesEntity) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -137,7 +139,11 @@ class MoviesAppRepository private constructor(
         @Volatile
         private var instance: MoviesAppRepository? = null
 
-        fun getInstance(remoteData: RemoteDataSource, localData: LocalDataSource, appExecutors: AppExecutors): MoviesAppRepository =
+        fun getInstance(
+            remoteData: RemoteDataSource,
+            localData: LocalDataSource,
+            appExecutors: AppExecutors
+        ): MoviesAppRepository =
             instance ?: synchronized(this) {
                 instance ?: MoviesAppRepository(remoteData, localData, appExecutors).apply {
                     instance = this

@@ -8,8 +8,6 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.madman.moviesapp.R
 import com.madman.moviesapp.ui.favorite.movie.FavoritedMoviesFragment
 import com.madman.moviesapp.ui.favorite.tvshow.FavoritedTvShowsFragment
-import com.madman.moviesapp.ui.movies.MoviesFragment
-import com.madman.moviesapp.ui.tvshow.TVShowFragment
 
 class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager) :
     FragmentPagerAdapter(

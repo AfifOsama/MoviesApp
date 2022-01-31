@@ -27,7 +27,7 @@ buildscript {
         legacyVersion = '1.0.0'
         splittiesVersion = '3.0.0'
         roboElectricVersion = '4.6'
-        idleResourceVersion = '3.2.0'
+        idleResourceVersion = '3.4.0'
         mockitoVersion = '3.6.0'
         mockitoKotlinVersion = '2.2.0'
         kotlinVersion = '1.6.10'

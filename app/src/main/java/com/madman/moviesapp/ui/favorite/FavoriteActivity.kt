@@ -1,14 +1,13 @@
 package com.madman.moviesapp.ui.favorite
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.madman.moviesapp.R
+import androidx.appcompat.app.AppCompatActivity
 import com.madman.moviesapp.databinding.ActivityFavoriteBinding
 
 class FavoriteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding=ActivityFavoriteBinding.inflate(layoutInflater)
+        val binding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)

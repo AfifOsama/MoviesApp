@@ -5,13 +5,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.madman.moviesapp.R
 import com.madman.moviesapp.data.resource.local.entity.TVShowEntity
 import com.madman.moviesapp.databinding.ActivityDetailTvshowBinding
 import com.madman.moviesapp.databinding.ContentDetailTvshowBinding
-import com.madman.moviesapp.ui.tvshow.TVShowViewModel
 import com.madman.moviesapp.utils.GlideHelper
 import com.madman.moviesapp.viewmodel.ViewModelFactory
 

@@ -10,7 +10,7 @@ class DetailTvshowViewModel(private val moviesAppRepository: MoviesAppRepository
         return moviesAppRepository.getTvShowDetail(id)
     }
 
-    fun setFavoriteTvShow(tvShow: TVShowEntity){
+    fun setFavoriteTvShow(tvShow: TVShowEntity) {
         moviesAppRepository.setFavoriteTvShow(tvShow)
     }
 }

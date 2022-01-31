@@ -8,7 +8,7 @@ import com.madman.moviesapp.data.resource.remote.MoviesAppRepository
 import com.madman.moviesapp.utils.AppExecutors
 
 object Injection {
-    fun provideRepository(context:Context): MoviesAppRepository {
+    fun provideRepository(context: Context): MoviesAppRepository {
         val database = MoviesAppDatabase.getInstance(context)
 
         val remoteDataSource = RemoteDataSource.getInstance()

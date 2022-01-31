@@ -31,10 +31,10 @@ class FavoritedMoviesFragment : Fragment(), MoviesFragmentCallback {
         super.onViewCreated(view, savedInstanceState)
         val factory = ViewModelFactory.getInstance(requireActivity())
         viewModel = ViewModelProvider(this, factory)[FavoriteMoviesViewModel::class.java]
-        binding.progressBar.visibility=View.VISIBLE
+        binding.progressBar.visibility = View.VISIBLE
         viewModel.getListFavoriteMovies().observe(viewLifecycleOwner, {
             if (it != null) {
-                binding.progressBar.visibility=View.GONE
+                binding.progressBar.visibility = View.GONE
                 binding.rvFavMovies.adapter?.let { adapter ->
                     when (adapter) {
                         is MoviesAdapter -> {

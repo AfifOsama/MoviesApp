@@ -4,13 +4,9 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
-import com.madman.moviesapp.data.resource.local.entity.MoviesEntity
 import com.madman.moviesapp.data.resource.local.entity.TVShowEntity
 import com.madman.moviesapp.data.resource.remote.MoviesAppRepository
-import com.madman.moviesapp.ui.movies.MoviesViewModel
-import com.madman.moviesapp.utils.DataDummy
 import com.madman.moviesapp.vo.Resource
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
