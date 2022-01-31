@@ -27,7 +27,7 @@ class FavoritedTvShowsFragment : Fragment(), TVShowFragmentCallback {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentFavoritedTvShowsBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -40,10 +40,10 @@ class FavoritedTvShowsFragment : Fragment(), TVShowFragmentCallback {
         viewModel.getListFavoriteTvShows().observe(viewLifecycleOwner, {
             if (it != null) {
                 binding.progressBar.visibility=View.GONE
-                binding.rvTvshow.adapter?.let { adapter ->
+                binding.rvFavTvshow.adapter?.let { adapter ->
                     when (adapter) {
                         is TVShowAdapter -> {
-                            binding.rvTvshow.visibility = View.VISIBLE
+                            binding.rvFavTvshow.visibility = View.VISIBLE
                             adapter.submitList(it)
                             adapter.notifyDataSetChanged()
                         }
@@ -52,8 +52,8 @@ class FavoritedTvShowsFragment : Fragment(), TVShowFragmentCallback {
             }
         })
         binding.apply {
-            rvTvshow.layoutManager = LinearLayoutManager(context)
-            rvTvshow.adapter = TVShowAdapter(this@FavoritedTvShowsFragment)
+            rvFavTvshow.layoutManager = LinearLayoutManager(context)
+            rvFavTvshow.adapter = TVShowAdapter(this@FavoritedTvShowsFragment)
         }
     }
 

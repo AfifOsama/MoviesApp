@@ -31,7 +31,7 @@ class DetailMovieViewModelTest {
     private lateinit var moviesAppRepository: MoviesAppRepository
 
     @Mock
-    private lateinit var movieObserver: Observer<MoviesEntity>
+    private lateinit var observer: Observer<MoviesEntity>
 
     @Before
     fun setUp(){
@@ -44,7 +44,7 @@ class DetailMovieViewModelTest {
         movie.value=dummyMovie
         Mockito.`when`(moviesAppRepository.getMovieDetail(movieId)).thenReturn(movie)
         val movieEntity=viewModel.getMovie(movieId).value as MoviesEntity
-        Mockito.verify<MoviesAppRepository>(moviesAppRepository).getMovieDetail(movieId)
+        Mockito.verify(moviesAppRepository).getMovieDetail(movieId)
         assertNotNull(movieEntity)
         assertEquals(dummyMovie.id,movieEntity.id)
         assertEquals(dummyMovie.title,movieEntity.title)
@@ -53,8 +53,8 @@ class DetailMovieViewModelTest {
         assertEquals(dummyMovie.imgPosterPath,movieEntity.imgPosterPath)
         assertEquals(dummyMovie.imgPreviewPath,movieEntity.imgPreviewPath)
 
-        viewModel.getMovie(movieId).observeForever(movieObserver)
-        Mockito.verify(movieObserver).onChanged(dummyMovie)
+        viewModel.getMovie(movieId).observeForever(observer)
+        Mockito.verify(observer).onChanged(dummyMovie)
     }
 
 }

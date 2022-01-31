@@ -22,7 +22,7 @@ class FavoritedMoviesFragment : Fragment(), MoviesFragmentCallback {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentFavoritedMoviesBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -35,10 +35,10 @@ class FavoritedMoviesFragment : Fragment(), MoviesFragmentCallback {
         viewModel.getListFavoriteMovies().observe(viewLifecycleOwner, {
             if (it != null) {
                 binding.progressBar.visibility=View.GONE
-                binding.rvMovies.adapter?.let { adapter ->
+                binding.rvFavMovies.adapter?.let { adapter ->
                     when (adapter) {
                         is MoviesAdapter -> {
-                            binding.rvMovies.visibility = View.VISIBLE
+                            binding.rvFavMovies.visibility = View.VISIBLE
                             adapter.submitList(it)
                             adapter.notifyDataSetChanged()
                         }
@@ -47,8 +47,8 @@ class FavoritedMoviesFragment : Fragment(), MoviesFragmentCallback {
             }
         })
         binding.apply {
-            rvMovies.layoutManager = LinearLayoutManager(context)
-            rvMovies.adapter = MoviesAdapter(this@FavoritedMoviesFragment)
+            rvFavMovies.layoutManager = LinearLayoutManager(context)
+            rvFavMovies.adapter = MoviesAdapter(this@FavoritedMoviesFragment)
         }
     }
 

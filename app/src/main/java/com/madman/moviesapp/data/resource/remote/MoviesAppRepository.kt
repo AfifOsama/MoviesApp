@@ -100,35 +100,6 @@ class MoviesAppRepository private constructor(
     }
 
     override fun getMovieDetail(movieId: Int): LiveData<MoviesEntity> = localDataSource.getMovieDetail(movieId)
-//        return object : NetworkBoundResource<MoviesEntity, List<MovieResponse>>(appExecutors) {
-//            override fun loadFromDB(): LiveData<MoviesEntity> =
-//                localDataSource.getMovieDetail(movieId)
-//
-//            override fun shouldFetch(data: MoviesEntity?): Boolean =
-//                data == null
-//
-//            override fun createCall(): LiveData<ApiResponse<List<MovieResponse>>> =
-//                remoteDataSource.getMovieDetail(movieId)
-//
-//            override fun saveCallResult(data: List<MovieResponse>) {
-//                lateinit var moviesEntity: MoviesEntity
-//                for (response in data) {
-//                    moviesEntity = MoviesEntity(
-//                        response.id,
-//                        response.title,
-//                        response.description,
-//                        response.releaseDate,
-//                        response.score,
-//                        response.img_poster,
-//                        response.img_preview
-//                    )
-//                }
-//                localDataSource.updateMovies(moviesEntity)
-//            }
-//
-//        }.asLiveData()
-
-
 
     override fun getTvShowDetail(tvShowId: Int): LiveData<TVShowEntity> = localDataSource.getTvShowDetail(tvShowId)
 

@@ -1,7 +1,6 @@
 package com.madman.moviesapp.data.resource.remote
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.madman.moviesapp.data.NetworkBoundResource
@@ -18,7 +17,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MoviesAppRepository private constructor(
+class FakeMoviesAppRepository constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
@@ -26,7 +25,8 @@ class MoviesAppRepository private constructor(
     MoviesAppDataStore {
 
     override fun getMovies(): LiveData<Resource<PagedList<MoviesEntity>>> {
-        return object : NetworkBoundResource<PagedList<MoviesEntity>, List<MovieResponse>>(appExecutors) {
+        return object :
+            NetworkBoundResource<PagedList<MoviesEntity>, List<MovieResponse>>(appExecutors) {
             override fun loadFromDB(): LiveData<PagedList<MoviesEntity>> {
                 val config = PagedList.Config.Builder()
                     .setEnablePlaceholders(false)
@@ -99,38 +99,11 @@ class MoviesAppRepository private constructor(
         }.asLiveData()
     }
 
-    override fun getMovieDetail(movieId: Int): LiveData<MoviesEntity> = localDataSource.getMovieDetail(movieId)
-//        return object : NetworkBoundResource<MoviesEntity, List<MovieResponse>>(appExecutors) {
-//            override fun loadFromDB(): LiveData<MoviesEntity> =
-//                localDataSource.getMovieDetail(movieId)
-//
-//            override fun shouldFetch(data: MoviesEntity?): Boolean =
-//                data == null
-//
-//            override fun createCall(): LiveData<ApiResponse<List<MovieResponse>>> =
-//                remoteDataSource.getMovieDetail(movieId)
-//
-//            override fun saveCallResult(data: List<MovieResponse>) {
-//                lateinit var moviesEntity: MoviesEntity
-//                for (response in data) {
-//                    moviesEntity = MoviesEntity(
-//                        response.id,
-//                        response.title,
-//                        response.description,
-//                        response.releaseDate,
-//                        response.score,
-//                        response.img_poster,
-//                        response.img_preview
-//                    )
-//                }
-//                localDataSource.updateMovies(moviesEntity)
-//            }
-//
-//        }.asLiveData()
+    override fun getMovieDetail(movieId: Int): LiveData<MoviesEntity> =
+        localDataSource.getMovieDetail(movieId)
 
-
-
-    override fun getTvShowDetail(tvShowId: Int): LiveData<TVShowEntity> = localDataSource.getTvShowDetail(tvShowId)
+    override fun getTvShowDetail(tvShowId: Int): LiveData<TVShowEntity> =
+        localDataSource.getTvShowDetail(tvShowId)
 
     override fun setFavoriteMovie(movie: MoviesEntity) {
         CoroutineScope(Dispatchers.IO).launch {

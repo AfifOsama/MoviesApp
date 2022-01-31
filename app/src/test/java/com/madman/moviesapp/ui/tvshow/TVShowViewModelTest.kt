@@ -3,11 +3,14 @@ package com.madman.moviesapp.ui.tvshow
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import com.madman.moviesapp.data.resource.local.entity.MoviesEntity
 import com.madman.moviesapp.data.resource.local.entity.TVShowEntity
 import com.madman.moviesapp.data.resource.remote.MoviesAppRepository
 import com.madman.moviesapp.ui.movies.MoviesViewModel
 import com.madman.moviesapp.utils.DataDummy
+import com.madman.moviesapp.vo.Resource
+import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -30,7 +33,10 @@ class TVShowViewModelTest {
     private lateinit var moviesAppRepository: MoviesAppRepository
 
     @Mock
-    private lateinit var observer: Observer<List<TVShowEntity>>
+    private lateinit var observer: Observer<Resource<PagedList<TVShowEntity>>>
+
+    @Mock
+    private lateinit var pagedList: PagedList<TVShowEntity>
 
     @Before
     fun setUp() {
@@ -39,14 +45,16 @@ class TVShowViewModelTest {
 
     @Test
     fun getTVShow() {
-        val dummyTvShow = DataDummy.generateTVShow()
-        val tvShow = MutableLiveData<List<TVShowEntity>>()
+        val dummyTvShow = Resource.success(pagedList)
+        Mockito.`when`(dummyTvShow.data?.size).thenReturn(6)
+        val tvShow = MutableLiveData<Resource<PagedList<TVShowEntity>>>()
         tvShow.value = dummyTvShow
-        Mockito.`when`(moviesAppRepository.getTvShow()).then { tvShow }
-        val tvShowEntity = viewModel.getTVShow().value
-        Mockito.verify<MoviesAppRepository>(moviesAppRepository).getTvShow()
+
+        Mockito.`when`(moviesAppRepository.getTvShows()).thenReturn(tvShow)
+        val tvShowEntity = viewModel.getTVShow().value?.data
+        Mockito.verify(moviesAppRepository).getTvShows()
         assertNotNull(tvShowEntity)
-        assertEquals(10, tvShowEntity?.size)
+        assertEquals(6, tvShowEntity?.size)
 
         viewModel.getTVShow().observeForever(observer)
         Mockito.verify(observer).onChanged(dummyTvShow)

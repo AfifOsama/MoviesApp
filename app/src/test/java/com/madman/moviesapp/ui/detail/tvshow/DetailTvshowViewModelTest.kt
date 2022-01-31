@@ -44,8 +44,8 @@ class DetailTvshowViewModelTest {
         val tvShow=MutableLiveData<TVShowEntity>()
         tvShow.value=dummyTvshow
         Mockito.`when`(moviesAppRepository.getTvShowDetail(tvShowId)).thenReturn(tvShow)
-        val tvShowEntity=viewModel.getTVshow(tvShowId).value as TVShowEntity
-        Mockito.verify<MoviesAppRepository>(moviesAppRepository).getTvShowDetail(tvShowId)
+        val tvShowEntity=viewModel.getTvShow(tvShowId).value as TVShowEntity
+        Mockito.verify(moviesAppRepository).getTvShowDetail(tvShowId)
         assertNotNull(tvShowEntity)
         assertEquals(dummyTvshow.id,tvShowEntity.id)
         assertEquals(dummyTvshow.title,tvShowEntity.title)
@@ -54,7 +54,7 @@ class DetailTvshowViewModelTest {
         assertEquals(dummyTvshow.imgPosterPath,tvShowEntity.imgPosterPath)
         assertEquals(dummyTvshow.imgPreviewPath,tvShowEntity.imgPreviewPath)
 
-        viewModel.getTVshow(tvShowId).observeForever(tvShowObserver)
+        viewModel.getTvShow(tvShowId).observeForever(tvShowObserver)
         Mockito.verify(tvShowObserver).onChanged(dummyTvshow)
     }
 }

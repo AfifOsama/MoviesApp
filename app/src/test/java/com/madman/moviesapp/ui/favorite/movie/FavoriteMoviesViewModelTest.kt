@@ -1,4 +1,4 @@
-package com.madman.moviesapp.ui.movies
+package com.madman.moviesapp.ui.favorite.movie
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
@@ -6,11 +6,8 @@ import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import com.madman.moviesapp.data.resource.local.entity.MoviesEntity
 import com.madman.moviesapp.data.resource.remote.MoviesAppRepository
-import com.madman.moviesapp.utils.DataDummy
-import com.madman.moviesapp.vo.Resource
 import org.junit.Assert
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -20,40 +17,42 @@ import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class MoviesViewModelTest {
-    private lateinit var viewModel: MoviesViewModel
+class FavoriteMoviesViewModelTest{
+    private lateinit var viewModel: FavoriteMoviesViewModel
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Mock
-    private lateinit var moviesAppRepository: MoviesAppRepository
+    private lateinit var repository: MoviesAppRepository
 
     @Mock
-    private lateinit var observer: Observer<Resource<PagedList<MoviesEntity>>>
+    private lateinit var observer: Observer<PagedList<MoviesEntity>>
 
     @Mock
     private lateinit var pagedList: PagedList<MoviesEntity>
 
     @Before
     fun setUp() {
-        viewModel = MoviesViewModel(moviesAppRepository)
+        viewModel = FavoriteMoviesViewModel(repository)
     }
 
     @Test
-    fun getMovies() {
-        val dummyMovie = Resource.success(pagedList)
-        Mockito.`when`(dummyMovie.data?.size).thenReturn(6)
-        val movie = MutableLiveData<Resource<PagedList<MoviesEntity>>>()
+    fun getListFavoriteMovies() {
+        val dummyMovie = pagedList
+        Mockito.`when`(dummyMovie.size).thenReturn(6)
+        val movie = MutableLiveData<PagedList<MoviesEntity>>()
         movie.value = dummyMovie
 
-        Mockito.`when`(moviesAppRepository.getMovies()).thenReturn(movie)
-        val movieEntity = viewModel.getMovies().value?.data
-        Mockito.verify(moviesAppRepository).getMovies()
+        Mockito.`when`(repository.getListFavoriteMovies()).thenReturn(movie)
+        val movieEntity = viewModel.getListFavoriteMovies().value
+        Mockito.verify(repository).getListFavoriteMovies()
         assertNotNull(movieEntity)
         assertEquals(6, movieEntity?.size)
 
-        viewModel.getMovies().observeForever(observer)
+        viewModel.getListFavoriteMovies().observeForever(observer)
         Mockito.verify(observer).onChanged(dummyMovie)
+
     }
+
 }
