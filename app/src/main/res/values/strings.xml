@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">MoviesApp</string>
+    <string name="title_activity_detail_movie">Detail Movie</string>
+    <string name="title_activity_detail_tvshow">Detail TV Show</string>
+    <string name="title">Title</string>
+    <string name="movies">Movies</string>
+    <string name="tv_show">TV Show</string>
+    <string name="july_18_2019">July 18, 2019</string>
+    <string name="lorem_ipsum_dolor_sit_amet">Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit ametLorem ipsum dolor sit amet Lorem ipsum dolor sit amet</string>
+    <string name="_4_3">4.3</string>
+    <string name="favorite">Favorite</string>
+    <string name="description">Description</string>
+    <string name="share_text">Segera Tonton Film %s di Platform Kesayangan Anda</string>
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>
